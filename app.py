@@ -1,5 +1,5 @@
 from mappings import mappings as m
-
+from inout import inout as ino
 
 mapping_dict = dict(m)
 
@@ -23,7 +23,8 @@ def substitute_text(input_text: str) -> str:
             i += 1
     return ''.join(result)
 
-# Example usage
-input_string = "This is a list of strange runes. ae oe eo th st. That was fun."
-output_string = substitute_text(input_string)
-print(output_string)
+if __name__ == '__main__':
+    filepath = './text.txt'
+    input_string = ino.read_txt(filepath)
+    output_string = substitute_text(input_string)
+    ino.save_txt(filepath, output_string)
