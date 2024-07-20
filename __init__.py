@@ -8,4 +8,4 @@ from .mappings import mappings
 from .filehandling import fh
 
 # __all__ is a list of public objects of that module, as interpreted by import *
-__all__ = ['substitute_text', 'mappings', 'fh']
+__all__ = ["substitute_text", "mappings", "fh"]

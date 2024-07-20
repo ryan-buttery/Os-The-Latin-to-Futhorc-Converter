@@ -6,16 +6,17 @@ import argparse
 
 mapping_dict = dict(m)
 
+
 def substitute_text(input_text: str) -> str:
     input_text = input_text.lower()
 
     result = []
     i = 0
     while i < len(input_text):
-         # Check if the current character is a digit
+        # Check if the current character is a digit
         if input_text[i].isdigit():
             # Find the full number
-            num_str = ''
+            num_str = ""
             while i < len(input_text) and input_text[i].isdigit():
                 num_str += input_text[i]
                 i += 1
@@ -26,8 +27,8 @@ def substitute_text(input_text: str) -> str:
             # Add the Roman numeral to the result
             result.append(roman_numeral)
         # Firstly deal with substitutions that have two original letters or punctuation followed by a space
-        elif input_text[i:i+2] in mapping_dict:
-            result.append(mapping_dict[input_text[i:i+2]])
+        elif input_text[i : i + 2] in mapping_dict:
+            result.append(mapping_dict[input_text[i : i + 2]])
             i += 2
         # Now substitute single letters into the correct rune
         elif input_text[i] in mapping_dict:
@@ -37,17 +38,26 @@ def substitute_text(input_text: str) -> str:
         else:
             result.append(input_text[i])
             i += 1
-    return ''.join(result)
+    return "".join(result)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     # filepath = './example.txt'
     # input_string = ino.read_txt(filepath)
     # output_string = substitute_text(input_string)
     # ino.save_as_odt(content=output_string)
     # # ino.save_txt(output_string)
 
-    parser = argparse.ArgumentParser(description="Substitute text and save as .txt or .odt")
-    parser.add_argument("input_file", nargs='?', default='./example.txt', type=str, help="Path to the input text file")
+    parser = argparse.ArgumentParser(
+        description="Substitute text and save as .txt or .odt"
+    )
+    parser.add_argument(
+        "input_file",
+        nargs="?",
+        default="./example.txt",
+        type=str,
+        help="Path to the input text file",
+    )
     args = parser.parse_args()
 
     input_string = fh.read_txt(args.input_file)
@@ -57,15 +67,15 @@ if __name__ == '__main__':
     print("Select the output file type by typing the appropriate number:")
     print("[1] Text File (.txt)")
     print("[2] Libre Office Document (.odt)")
-    
+
     file_type = input("Enter your choice: ").strip()
-    
+
     if file_type == "1":
-        output_file = args.input_file.rsplit('.', 1)[0] + ".txt"
+        output_file = args.input_file.rsplit(".", 1)[0] + ".txt"
         fh.save_txt(output_file, output_string)
         print(f"Output saved to {output_file}")
     elif file_type == "2":
-        output_file = args.input_file.rsplit('.', 1)[0] + ".odt"
+        output_file = args.input_file.rsplit(".", 1)[0] + ".odt"
         fh.save_as_odt(output_file, output_string)
         print(f"Output saved to {output_file}")
     else:
