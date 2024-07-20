@@ -2,3 +2,5 @@
 .vscode/settings.json
 *-futhorc.txt
 *.odt
+build/*
+dist/*
