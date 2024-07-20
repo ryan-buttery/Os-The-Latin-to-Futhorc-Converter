@@ -1,9 +1,9 @@
 # -*- mode: python ; coding: utf-8 -*-
 # run this command to build:
-# pipenv run pyinstaller build.spec
+# pipenv run pyinstaller build_gui.spec
 
 a = Analysis(
-    ['app.py'],
+    ['gui.py'],
     pathex=['/home/ryanb/source/futhorc-transliterationtron-9000'],
     binaries=[],
     datas=[],
@@ -23,7 +23,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='app',
+    name='futhorc',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
