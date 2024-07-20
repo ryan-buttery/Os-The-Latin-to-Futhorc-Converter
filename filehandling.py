@@ -2,7 +2,7 @@ import os
 from odf.opendocument import OpenDocumentText
 from odf.text import P, Span
 
-class inout:
+class fh:
     def __init__(self) -> None:
         """
         Constructor for this class... doesn't do anything too exciting. This is a class of methods. OOP does not dwell here...

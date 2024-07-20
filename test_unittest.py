@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import mock_open, patch
 from app import substitute_text, mapping_dict
-from inout import inout
+from filehandling import fh
 
 class TestSubstituteText(unittest.TestCase):
 
@@ -39,8 +39,8 @@ class TestFileOperations(unittest.TestCase):
     def test_read_txt(self):
         # test the txt read func (mock)
         mock_content = "Sample text"
-        with patch('inout.inout.read_txt', return_value=mock_content):
-            content = inout.read_txt('fake_path.txt')
+        with patch('filehandling.fh.read_txt', return_value=mock_content):
+            content = fh.read_txt('fake_path.txt')
             self.assertEqual(content, mock_content)
     
     def test_save_txt(self):
@@ -48,8 +48,8 @@ class TestFileOperations(unittest.TestCase):
         mock_content = "Sample text"
         filepath = 'fake_output.txt'
         with patch('builtins.open', mock_open()) as mocked_file:
-            inout.filepath = ('fake_output.txt')
-            inout.save_txt(filepath, mock_content)
+            fh.filepath = ('fake_output.txt')
+            fh.save_txt(filepath, mock_content)
             mocked_file.assert_called_once_with('fake_output-futhorc.txt', 'w', encoding='utf-8')
             mocked_file().write.assert_called_once_with(mock_content)
 
@@ -58,9 +58,9 @@ class TestFileOperations(unittest.TestCase):
         mock_content = "Sample text\nNew line"
         filepath = 'fake_output.txt'
         
-        with patch('inout.OpenDocumentText') as MockOpenDocumentText:
+        with patch('filehandling.OpenDocumentText') as MockOpenDocumentText:
             mock_doc = MockOpenDocumentText.return_value
-            inout.save_as_odt(filepath, mock_content)
+            fh.save_as_odt(filepath, mock_content)
             
             # check if doc was actually created and saved, as that helps.
             MockOpenDocumentText.assert_called_once()

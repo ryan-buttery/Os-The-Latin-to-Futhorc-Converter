@@ -1,5 +1,5 @@
 from mappings import mappings as m
-from inout import inout as ino
+from filehandling import fh
 from roman import int_to_roman
 import argparse
 
@@ -50,7 +50,7 @@ if __name__ == '__main__':
     parser.add_argument("input_file", nargs='?', default='./example.txt', type=str, help="Path to the input text file")
     args = parser.parse_args()
 
-    input_string = ino.read_txt(args.input_file)
+    input_string = fh.read_txt(args.input_file)
     output_string = substitute_text(input_string)
 
     # Prompt the user to select the output file type
@@ -62,11 +62,11 @@ if __name__ == '__main__':
     
     if file_type == "1":
         output_file = args.input_file.rsplit('.', 1)[0] + ".txt"
-        ino.save_txt(output_file, output_string)
+        fh.save_txt(output_file, output_string)
         print(f"Output saved to {output_file}")
     elif file_type == "2":
         output_file = args.input_file.rsplit('.', 1)[0] + ".odt"
-        ino.save_as_odt(output_file, output_string)
+        fh.save_as_odt(output_file, output_string)
         print(f"Output saved to {output_file}")
     else:
         print("Invalid choice. No output file created.")
