@@ -6,6 +6,11 @@ class TestSubstituteText(unittest.TestCase):
     def test_single_character_mappings(self):
         # Assuming 'a' maps to 'ᚪ'
         self.assertEqual(substitute_text('a'), mapping_dict['a'])
+    def test_two_single_characters_mapping(self):
+        # Assuming 'a' maps to 'ᚪ' and 'B' to 'ᛒ'
+        input_text = 'ab'
+        expected_output = mapping_dict['a'] + mapping_dict['b']
+        self.assertEqual(substitute_text(input_text), expected_output)
 
     def test_two_character_mappings(self):
         # Assuming 'ae' maps to 'ᚫ'
