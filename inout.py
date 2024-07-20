@@ -29,7 +29,7 @@ class inout:
             print(f"You've got an error pal. Maybe your file doesn't exist, or you don't have permission to read it. Or you fat-fingered the filepath.\n{e}")
     
     @classmethod
-    def save_txt(cls, content) -> None:
+    def save_txt(cls, filepath, content) -> None:
         """
         Saves the transliterated text into a txt file, and appends '-futhorc' to the end.
 
@@ -38,6 +38,7 @@ class inout:
             content (str): The content you want to write to the txt file. Wow. Such original. Mucho amaze.
         """
         cls.content = content
+        cls.filepath = filepath
         cls.base, cls.ext = os.path.splitext(cls.filepath)
         cls.new_filename = f"{cls.base}-futhorc{cls.ext}"
         try:
@@ -46,7 +47,7 @@ class inout:
         except Exception as e:
             print(f"It's error time again! Maybe you don't have permission to write to the location... Whatever.\n{e}")
     @classmethod
-    def save_as_odt(cls, content) -> None:
+    def save_as_odt(cls, filepath, content) -> None:
         """
         Saves the transliterated text into a. odt file, and appends '-futhorc' to the end.
 
@@ -55,6 +56,7 @@ class inout:
             content (str): The content you want to write to the odt file. Wow. Such original. Mucho amaze.
         """
         cls.content = content
+        cls.filepath = filepath
         cls.base, cls.ext = os.path.splitext(cls.filepath)
         cls.new_filename = f"{cls.base}-futhorc.odt"
         try:

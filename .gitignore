@@ -1,3 +1,4 @@
 *.pyc
 .vscode/settings.json
-example-futhorc.odt
+*-futhorc.txt
+*.odt

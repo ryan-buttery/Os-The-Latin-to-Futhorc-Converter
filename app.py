@@ -62,11 +62,11 @@ if __name__ == '__main__':
     
     if file_type == "1":
         output_file = args.input_file.rsplit('.', 1)[0] + ".txt"
-        ino.save_txt(output_string)
+        ino.save_txt(output_file, output_string)
         print(f"Output saved to {output_file}")
     elif file_type == "2":
         output_file = args.input_file.rsplit('.', 1)[0] + ".odt"
-        ino.save_as_odt(output_string)
+        ino.save_as_odt(output_file, output_string)
         print(f"Output saved to {output_file}")
     else:
         print("Invalid choice. No output file created.")
