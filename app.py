@@ -24,7 +24,7 @@ def substitute_text(input_text: str) -> str:
     return ''.join(result)
 
 if __name__ == '__main__':
-    filepath = './text.txt'
+    filepath = './shropshirelad1.txt'
     input_string = ino.read_txt(filepath)
     output_string = substitute_text(input_string)
     ino.save_txt(filepath, output_string)
