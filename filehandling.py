@@ -1,6 +1,7 @@
 import os
 from odf.opendocument import OpenDocumentText
 from odf.text import P, Span
+from sys import exit
 
 
 class fh:
@@ -31,7 +32,7 @@ class fh:
             print(
                 f"You've got an error pal. Maybe your file doesn't exist, or you don't have permission to read it. Or you fat-fingered the filepath.\n{e}"
             )
-            exit (1)
+            exit(1)
 
     @classmethod
     def save_txt(cls, filepath, content) -> None:

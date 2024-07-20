@@ -54,7 +54,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "input_file",
         nargs="?",
-        default="./example.txt",
         type=str,
         help="Path to the input text file",
     )
