@@ -66,8 +66,8 @@ class fh:
         """
         cls.content = content
         cls.filepath = filepath
-        cls.base, cls.ext = os.path.splitext(cls.filepath)
-        cls.new_filename = f"{cls.base}-futhorc.odt"
+        # cls.base, cls.ext = os.path.splitext(cls.filepath)
+        # cls.new_filename = f"{cls.base}-futhorc.odt"
         try:
             cls.lines = content.split("\n")
             cls.doc = OpenDocumentText()
@@ -75,7 +75,8 @@ class fh:
                 cls.p = P()
                 cls.p.addElement(Span(text=line))
                 cls.doc.text.addElement(cls.p)
-            cls.doc.save(cls.new_filename)
+            # cls.doc.save(cls.new_filename)
+            cls.doc.save(cls.filepath)
         except Exception as e:
             print(
                 f"Uh oh. Something went wrong saving it as a libreoffice doc. Sorry pal:\n{e}"
