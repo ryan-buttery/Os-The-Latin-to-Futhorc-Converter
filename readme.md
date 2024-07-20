@@ -1,21 +1,58 @@
-# About this script
+# Latin letter to futhorc (English and Frisian) rune converter
+![futhorc](https://github.com/user-attachments/assets/6b56cd8c-1a79-4687-91d3-44eb04a3d292)
 
-I have a slightly strange facination with the rune systems of Germanic languages, with a focus on English runes (the futhorc).
+## Disclaimer
+* This is not a serious academic resource; I'm sure many academics will not be very impressed with what I'm up to here. (Given the choice, many seem content to gatekeep this facinating part of our language's history to themselves...)
+* These are not "Viking runes", although they are a cousin of the Younger Futhark rune sets that were used by the Norse. They had fewer runes, though.
+* I do not approve of mysticism and other crap (including political...) that people try to use runes for, but freedom of speech and expression applies to futhorc too. I want to claim them back from snakeoil sales(wo)men and extremists.
+* This is a fun app that allows you to convert from latin letters to futhorc in real time, or by importing a text file.
+* Yes, I know that several of the runes are not considered "well attested", due to the lack of historical manuscripts and carvings featuring them.
+* Yes, some of these may have been later inventions post-1066
+* I'm including them anyway, because it is fun. Maybe I will add a "super dooper(tm) authentic mode" in the future. 
 
-Writing in these is fairly easy, but I'd like a way to generate a bunch of text to practice my reading. 
+It has the option of allowing you to save the output as a txt or open office document.
 
-The mappings in this repo are incomplete and would probably cause academics in this subjects to riot. Chill. It's just for testing right now... 
+## Example input and output
+![image](https://github.com/user-attachments/assets/1a19d716-da32-407c-a430-19ba75ee5611)
 
-I have my copy of the "little red rune book", and I will be using the recommendations from this to make the transliteration as accurate as possible.
 
-Squeezing the many sounds of modern English into the futhorc is a challenge and will no doubt spark further riots... but we manage it with the latin alphabet without any special characters. 
+### Latin Input
+A Shropshire Lad 2: Loveliest of trees, the cherry now
 
-I'm sure we will manage here...
+BY A. E. HOUSMAN
 
-## Ultimate Aim
+Loveliest of trees, the cherry now
+Is hung with bloom along the bough,
+And stands about the woodland ride
+Wearing white for Eastertide.
 
-Currently it just takes in a string and spits it back out into the terminal. That sucks.
+Now, of my threescore years and ten,
+Twenty will not come again,
+And take from seventy springs a score,
+It only leaves me fifty more.
 
-My intention is to pass it text files (or maybe even docx or ods files), and have it spit a file back out ready to go.
+And since to look at things in bloom
+Fifty springs are little room,
+About the woodlands I will go
+To see the cherry hung with snow.
 
-Maybe it will read PDFs one day... Maybe I'll get bored, or busy with life.
+### Futhorc Output
+ᚪ᛫ᛋᚻᚱᚩᛈᛋᚻᛁᚱᛖ᛫ᛚᚪᛞ᛫II᛬ᛚᚩᚠᛖᛚᛁᛖᛥ᛫ᚩᚠ᛫ᛏᚱᛖᛖᛋ᛬ᚦᛖ᛫ᚳᚻᛖᚱᚱᚣ᛫ᚾᚩᚹ
+
+ᛒᚣ᛫ᚪ⫶ᛖ⫶ᚻᚩᚢᛋᛗᚪᚾ
+
+ᛚᚩᚠᛖᛚᛁᛖᛥ᛫ᚩᚠ᛫ᛏᚱᛖᛖᛋ᛬ᚦᛖ᛫ᚳᚻᛖᚱᚱᚣ᛫ᚾᚩᚹ
+ᛁᛋ᛫ᚻᚢᛝ᛫ᚹᛁᚦ᛫ᛒᛚᚩᚩᛗ᛫ᚪᛚᚩᛝ᛫ᚦᛖ᛫ᛒᚩᚢᚷᚻ᛬
+ᚪᚾᛞ᛫ᛥᚪᚾᛞᛋ᛫ᚪᛒᚩᚢᛏ᛫ᚦᛖ᛫ᚹᚩᚩᛞᛚᚪᚾᛞ᛫ᚱᛁᛞᛖ
+ᚹᛠᚱᛁᛝ᛫ᚹᚻᛁᛏᛖ᛫ᚠᚩᚱ᛫ᛠᛥᛖᚱᛏᛁᛞᛖ⫶
+
+ᚾᚩᚹ᛬ᚩᚠ᛫ᛗᚣ᛫ᚦᚱᛖᛖᛋᚳᚩᚱᛖ᛫ᚣᛠᚱᛋ᛫ᚪᚾᛞ᛫ᛏᛖᚾ᛬
+ᛏᚹᛖᚾᛏᚣ᛫ᚹᛁᛚᛚ᛫ᚾᚩᛏ᛫ᚳᚩᛗᛖ᛫ᚪᚷᚪᛁᚾ᛬
+ᚪᚾᛞ᛫ᛏᚪᛣᛖ᛫ᚠᚱᚩᛗ᛫ᛋᛖᚠᛖᚾᛏᚣ᛫ᛋᛈᚱᛁᛝᛋ᛫ᚪ᛫ᛋᚳᚩᚱᛖ᛬
+ᛁᛏ᛫ᚩᚾᛚᚣ᛫ᛚᛠᚠᛖᛋ᛫ᛗᛖ᛫ᚠᛁᚠᛏᚣ᛫ᛗᚩᚱᛖ⫶
+
+ᚪᚾᛞ᛫ᛋᛁᚾᚳᛖ᛫ᛏᚩ᛫ᛚᚩᚩᛣ᛫ᚪᛏ᛫ᚦᛁᛝᛋ᛫ᛁᚾ᛫ᛒᛚᚩᚩᛗ
+ᚠᛁᚠᛏᚣ᛫ᛋᛈᚱᛁᛝᛋ᛫ᚪᚱᛖ᛫ᛚᛁᛏᛏᛚᛖ᛫ᚱᚩᚩᛗ᛬
+ᚪᛒᚩᚢᛏ᛫ᚦᛖ᛫ᚹᚩᚩᛞᛚᚪᚾᛞᛋ᛫ᛁ᛫ᚹᛁᛚᛚ᛫ᚷᚩ
+ᛏᚩ᛫ᛋᛖᛖ᛫ᚦᛖ᛫ᚳᚻᛖᚱᚱᚣ᛫ᚻᚢᛝ᛫ᚹᛁᚦ᛫ᛋᚾᚩᚹ⫶
+
