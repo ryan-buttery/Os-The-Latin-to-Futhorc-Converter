@@ -27,7 +27,7 @@ class inout:
             print(f"You've got an error pal. Maybe your file doesn't exist, or you don't have permission to read it. Or you fat-fingered the filepath.\n{e}")
     
     @classmethod
-    def save_txt(cls, filepath, content):
+    def save_txt(cls, content):
         """
         Saves the transliterated text into a txt file, and appends '-futhorc' to the end.
 
@@ -35,7 +35,7 @@ class inout:
             filepath (str): Just give this the filepath var you used for the read_txt path. 
             content (str): The content you want to write to the txt file. Wow. Such original. Mucho amaze.
         """
-        cls.filepath = filepath
+        cls.filepath
         cls.content = content
         base, ext = os.path.splitext(cls.filepath)
         new_filename = f"{base}-futhorc{ext}"
