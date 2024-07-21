@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import mock_open, patch
-from substitute_text import substitute_text, mapping_dict
-from filehandling import fh
+from modules.substitute_text import substitute_text, mapping_dict
+from modules.filehandling import fh
 
 
 class TestSubstituteText(unittest.TestCase):
@@ -40,7 +40,7 @@ class TestFileOperations(unittest.TestCase):
     def test_read_txt(self):
         # test the txt read func (mock)
         mock_content = "Sample text"
-        with patch("filehandling.fh.read_txt", return_value=mock_content):
+        with patch("modules.filehandling.fh.read_txt", return_value=mock_content):
             content = fh.read_txt("fake_path.txt")
             self.assertEqual(content, mock_content)
 
@@ -61,7 +61,7 @@ class TestFileOperations(unittest.TestCase):
         mock_content = "Sample text\nNew line"
         filepath = "fake_output.odt"
 
-        with patch("filehandling.OpenDocumentText") as MockOpenDocumentText:
+        with patch("modules.filehandling.OpenDocumentText") as MockOpenDocumentText:
             mock_doc = MockOpenDocumentText.return_value
             fh.save_as_odt(filepath, mock_content)
 
