@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import mock_open, patch
-from app import substitute_text, mapping_dict
+from substitute_text import substitute_text, mapping_dict
 from filehandling import fh
 
 
@@ -56,10 +56,10 @@ class TestFileOperations(unittest.TestCase):
             )
             mocked_file().write.assert_called_once_with(mock_content)
 
-    def test_save_as_odt_without_filepath(self):
+    def test_save_as_odt_with_filepath(self):
         # This is tedious. Hopefully a write once and never again job.
         mock_content = "Sample text\nNew line"
-        filepath = "fake_output.txt"
+        filepath = "fake_output.odt"
 
         with patch("filehandling.OpenDocumentText") as MockOpenDocumentText:
             mock_doc = MockOpenDocumentText.return_value
@@ -67,7 +67,7 @@ class TestFileOperations(unittest.TestCase):
 
             # check if doc was actually created and saved, as that helps.
             MockOpenDocumentText.assert_called_once()
-            mock_doc.save.assert_called_once_with("fake_output-futhorc.odt")
+            mock_doc.save.assert_called_once_with("fake_output.odt")
 
             # make sure the content is actually in paragraphs, since odt likes to put everything in one line...
             calls = [

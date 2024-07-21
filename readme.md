@@ -13,7 +13,8 @@
 It has the option of allowing you to save the output as a txt or open office document.
 
 ## Example input and output
-![image](https://github.com/user-attachments/assets/1a19d716-da32-407c-a430-19ba75ee5611)
+![image](https://github.com/user-attachments/assets/8e2ec155-b4c9-4c64-8e88-85380cf81162)
+
 
 
 ### Latin Input
