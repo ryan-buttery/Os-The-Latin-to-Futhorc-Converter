@@ -184,10 +184,11 @@ main_heading = tk.Label(
 main_heading.config(font=heading_font)
 main_heading.pack(padx=10, pady=10, anchor=tk.W, side=tk.LEFT)
 
-
+# create main frame to contain the good stuff
 main_frame = tk.Frame(root)
 main_frame.pack(fill=tk.BOTH, expand=True)
 
+# sub-divide gui further so we can have a landscape layout.
 input_frame = tk.LabelFrame(main_frame, text="Input / ᛁᚾᛈᚢᛏ")
 input_frame.pack(padx=10, pady=10, anchor=tk.W, side=tk.LEFT, fill=tk.BOTH, expand=True)
 input_frame.config(font=(subheading_font))
@@ -198,6 +199,7 @@ output_frame.pack(
     padx=10, pady=10, anchor=tk.W, side=tk.RIGHT, fill=tk.BOTH, expand=True
 )
 
+# setup input and output fields
 input_text_box = scrolledtext.ScrolledText(input_frame, wrap="word")
 input_text_box.config(font=input_text_font)
 input_text_box.pack(padx=10, pady=10, expand=True, fill=tk.BOTH)
@@ -207,11 +209,6 @@ input_text_box.bind("<<Modified>>", process_text)
 input_text_box.bind("<Control-BackSpace>", delete_word)
 input_text_box.bind("<Button-3>", show_context_menu)
 
-
-# paste_button = tk.Button(input_frame, text="Paste", command=paste_from_clipboard)
-# paste_button.pack(pady=10, anchor=tk.CENTER)
-
-
 output_text_box = scrolledtext.ScrolledText(output_frame, wrap="word", state="disabled")
 output_text_box.config(font=output_text_font)
 output_text_box.pack(padx=10, pady=10, expand=True, fill=tk.BOTH)
@@ -219,6 +216,5 @@ output_text_box.bind("<Control-a>", select_all)
 output_text_box.bind("<Control-A>", select_all)
 output_text_box.bind("<Button-3>", show_context_menu)
 
-# copy_button = tk.Button(output_frame, text="Copy", command=select_all_and_copy)
-# copy_button.pack(pady=10)
-root.mainloop()
+if __name__ == "__main__":
+    root.mainloop()
