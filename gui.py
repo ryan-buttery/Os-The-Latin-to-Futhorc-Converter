@@ -1,5 +1,5 @@
-from substitute_text import substitute_text
-from filehandling import fh
+from modules.substitute_text import substitute_text
+from modules.filehandling import fh
 import tkinter as tk
 from tkinter import filedialog, scrolledtext
 import os
