@@ -4,7 +4,7 @@
 
 a = Analysis(
     ['gui.py'],
-    pathex=['/home/ryanb/source/futhorc-transliterationtron-9000'],
+    pathex=['./modules'],
     binaries=[],
     datas=[
     ('icons/favicon_square.png', 'icons'),
