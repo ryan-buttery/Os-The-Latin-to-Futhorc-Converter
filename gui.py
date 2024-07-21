@@ -1,4 +1,4 @@
-from app import substitute_text
+from substitute_text import substitute_text
 from filehandling import fh
 import tkinter as tk
 from tkinter import filedialog, Text
