@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import filedialog, Text, scrolledtext
 import os
 import re
+import sys
 
 # Aesthetics
 heading_font: tuple = ("Serif", 16, "bold")
@@ -11,6 +12,10 @@ subheading_font: tuple = ("Serif", 14, "bold")
 input_text_font: tuple = ("Serif", 12)
 output_text_font: tuple = ("Serif", 12, "bold")
 
+
+def resource_path(relative_path):
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
 
 def open_file():
     file_path = filedialog.askopenfilename()
@@ -100,12 +105,26 @@ root.title("Latin to Futhorc Converter")
 
 root.geometry()
 
-icon_path = os.path.join("icons", "favicon_square.png")
-if os.path.exists(icon_path):
-    icon = tk.PhotoImage(file=icon_path)
-    root.iconphoto(True, icon)
+# icon_path = os.path.join("icons", "favicon_square.png")
+# if os.path.exists(icon_path):
+#     icon = tk.PhotoImage(file=icon_path)
+#     root.iconphoto(True, icon)
+# else:
+#     print(f"Icon file not found at {icon_path}")
+
+if sys.platform.startswith('win'):
+    icon_path = resource_path('icons/favicon_square.ico')
+    if os.path.exists(icon_path):
+        root.iconbitmap(icon_path)
+    else:
+        print(f"Icon file not found at {icon_path}")
 else:
-    print(f"Icon file not found at {icon_path}")
+    icon_path = resource_path('icons/favicon_square.png')
+    if os.path.exists(icon_path):
+        icon = tk.PhotoImage(file=icon_path)
+        root.iconphoto(True, icon)
+    else:
+        print(f"Icon file not found at {icon_path}")
 
 # create menu bar
 menubar = tk.Menu(root)

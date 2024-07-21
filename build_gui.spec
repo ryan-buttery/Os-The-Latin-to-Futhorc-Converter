@@ -6,7 +6,9 @@ a = Analysis(
     ['gui.py'],
     pathex=['/home/ryanb/source/futhorc-transliterationtron-9000'],
     binaries=[],
-    datas=[],
+    datas=[
+    ('icons/favicon_square.png', 'icons'),
+    ('icons/favicon_square.ico', 'icons'),],
     hiddenimports=['filehandling', 'mappings', 'roman'],
     hookspath=[],
     hooksconfig={},
@@ -36,4 +38,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon='icons/favicon_square.ico',  
 )
