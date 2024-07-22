@@ -1,5 +1,7 @@
 from tkinter import Toplevel, Label, Button, PhotoImage, Frame, BOTH, Tk
 import webbrowser
+from modules.encdec import *
+from modules.logo import logo
 
 # pop ups
 
@@ -14,8 +16,7 @@ def show_about() -> None:
     about_window.title("About Ōs")
 
     # Load the icon image
-    icon_path = "./icons/favicon_square.png"
-    icon_image = PhotoImage(file=icon_path)
+    icon_image = decode_base64_image(logo)
 
     # Create a frame for the heading and icon
     about_window_content_frame = Frame(about_window)

@@ -136,13 +136,13 @@ root.title("Ōs: The Latin to Futhorc Converter")
 root.geometry()
 
 if sys.platform.startswith("win"):
-    icon_path = resource_path("../icons/favicon_square.ico")
+    icon_path = resource_path("./icons/favicon_square.ico")
     if os.path.exists(icon_path):
         root.iconbitmap(icon_path)
     else:
         print(f"Icon file not found at {icon_path}")
 else:
-    icon_path = resource_path("../icons/favicon_square.png")
+    icon_path = resource_path("./icons/favicon_square.png")
     if os.path.exists(icon_path):
         icon = tk.PhotoImage(file=icon_path)
         root.iconphoto(True, icon)
