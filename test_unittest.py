@@ -2,6 +2,8 @@ import unittest
 from unittest.mock import mock_open, patch, MagicMock, call
 from modules.substitute_text import substitute_text, mapping_dict
 import modules.main_window as main_window
+import modules.about_windows as about_windows
+from tkinter import BOTH
 from modules.filehandling import fh
 
 
@@ -80,7 +82,7 @@ class TestFileOperations(unittest.TestCase):
             )  # We expect two paragraphs due to the newline in mock_content
 
 
-class TestGUI(unittest.TestCase):
+class TestMainGUI(unittest.TestCase):
 
     @patch("tkinter.filedialog.askopenfilename")
     @patch(
@@ -165,6 +167,132 @@ class TestGUI(unittest.TestCase):
         main_window.paste_text(event)
 
         event.widget.event_generate.assert_called_once_with("<<Paste>>")
+
+
+class TestHelpGUI(unittest.TestCase):
+
+    @patch("modules.about_windows.Toplevel")
+    @patch("modules.about_windows.PhotoImage")
+    @patch("modules.about_windows.Label")
+    @patch("modules.about_windows.Button")
+    @patch("modules.about_windows.Frame")
+    def test_show_about(
+        self, mock_frame, mock_button, mock_label, mock_photoimage, mock_toplevel
+    ):
+        # Mock the frame instance
+        mock_frame_instance = MagicMock()
+        mock_frame.return_value = mock_frame_instance
+
+        # Call the function
+        about_windows.show_about()
+
+        # Check that Toplevel window was created
+        mock_toplevel.assert_called_once()
+
+        # Check that PhotoImage was created with correct path
+        mock_photoimage.assert_called_once_with(file="./icons/favicon_square.png")
+
+        # Check that Frame was created in Toplevel
+        mock_frame.assert_called_once_with(mock_toplevel())
+        mock_frame_instance.pack.assert_called_once_with(pady=10, padx=10, fill=BOTH)
+
+        # Check that the icon label was created with the image inside the frame
+        mock_label.assert_any_call(mock_frame_instance, image=mock_photoimage())
+
+        # Check that the about title and body labels were created inside the frame
+        mock_label.assert_any_call(
+            mock_frame_instance,
+            text="Ōs: The Latin to Futhorc Converter\nᚩ᛬ᚦᛖ᛫ᛚᚪᛏᛁᚾ᛫ᛏᚩ᛫ᚠᚢᚦᚩᚱᚳ᛫ᚳᚩᚾᚠᛖᚱᛏᛖᚱ",
+            wraplength=500,
+            justify="left",
+            font=about_windows.heading_font,
+            anchor="e",
+        )
+        mock_label.assert_any_call(
+            mock_frame_instance,
+            text="Created by Ryan Buttery.\n\nCopyright 2024 Ryan Buttery and Ōs contributors.\nAll rights reserved.",
+            wraplength=500,
+            justify="left",
+            font=about_windows.regular_text_font,
+            anchor="s",
+        )
+
+        # Check that the GitHub link was created with the correct text inside the frame
+        mock_label.assert_any_call(
+            mock_frame_instance,
+            text="Project GitHub",
+            fg="blue",
+            cursor="hand2",
+            wraplength=500,
+            font=about_windows.subheading_font,
+            anchor="e",
+        )
+
+        # Check that the personal site link was created with the correct text inside the frame
+        mock_label.assert_any_call(
+            mock_frame_instance,
+            text="My Site",
+            fg="blue",
+            cursor="hand2",
+            wraplength=500,
+            font=about_windows.subheading_font,
+            anchor="w",
+        )
+
+        # Check that the close button was created
+        mock_button.assert_called_once_with(
+            mock_toplevel(), text="Close", command=mock_toplevel().destroy
+        )
+
+    @patch("modules.about_windows.Toplevel")
+    @patch("modules.about_windows.Label")
+    @patch("modules.about_windows.Button")
+    def test_show_license(self, mock_button, mock_label, mock_toplevel):
+        # Call the function
+        about_windows.show_license()
+
+        # Check that Toplevel window was created
+        mock_toplevel.assert_called_once()
+
+        # Check that the license text label was created
+        license_text = (
+            "Ōs: The Latin to Futhorc Converter\nᚩ᛬ᚦᛖ᛫ᛚᚪᛏᛁᚾ᛫ᛏᚩ᛫ᚠᚢᚦᚩᚱᚳ᛫ᚳᚩᚾᚠᛖᚱᛏᛖᚱ\n\n"
+            "This program is free software; you can redistribute it and/or modify "
+            "it under the terms of the GNU General Public License as published by "
+            "the Free Software Foundation; with version 2 of the License.\n"
+            "This program is distributed in the hope that it will be useful, "
+            "but WITHOUT ANY WARRANTY; without even the implied warranty of "
+            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
+            "GNU General Public License for more details.\n"
+            "You should have received a copy of the GNU General Public License along "
+            "with this program; if not, write to the Free Software Foundation, Inc., "
+            "51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA."
+        )
+        mock_label.assert_any_call(
+            mock_toplevel(), text=license_text, wraplength=500, justify="left"
+        )
+
+        # Check that the GNU GPL link was created with the correct text
+        mock_label.assert_any_call(
+            mock_toplevel(),
+            text="GNU GPL 2.0 License",
+            fg="blue",
+            cursor="hand2",
+            wraplength=500,
+        )
+
+        # Check that the copyright text label was created
+        mock_label.assert_any_call(
+            mock_toplevel(),
+            text="Copyright © 2024 Ryan Buttery and Ōs contributors. All rights reserved.",
+            wraplength=500,
+            justify="left",
+        )
+
+        # Check that the close button was created
+        mock_button.assert_called_once_with(
+            mock_toplevel(), text="Close", command=mock_toplevel().destroy
+        )
 
 
 if __name__ == "__main__":

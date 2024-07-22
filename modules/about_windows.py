@@ -8,7 +8,7 @@ subheading_font: tuple = ("Serif", 14, "bold")
 regular_text_font: tuple = ("Serif", 12)
 
 
-def show_about():
+def show_about() -> None:
     # create Toplevel window and add main label
     about_window = Toplevel()
     about_window.title("About Ōs")
@@ -28,7 +28,7 @@ def show_about():
     # Keep a reference to the image to prevent garbage collection
     icon_label.image = icon_image
 
-    about_title = "Ōs: The Latin to Futhorc Converter\n"
+    about_title = "Ōs: The Latin to Futhorc Converter\nᚩ᛬ᚦᛖ᛫ᛚᚪᛏᛁᚾ᛫ᛏᚩ᛫ᚠᚢᚦᚩᚱᚳ᛫ᚳᚩᚾᚠᛖᚱᛏᛖᚱ"
     label_about_title = Label(
         about_window_content_frame,
         text=about_title,
@@ -104,11 +104,10 @@ def show_license() -> None:
     license_window = Toplevel()
     license_window.title("Licensing and Legal Information")
     license_text = (
-        "Ōs: The Latin to Futhorc Converter\n\n"
+        "Ōs: The Latin to Futhorc Converter\nᚩ᛬ᚦᛖ᛫ᛚᚪᛏᛁᚾ᛫ᛏᚩ᛫ᚠᚢᚦᚩᚱᚳ᛫ᚳᚩᚾᚠᛖᚱᛏᛖᚱ\n\n"
         "This program is free software; you can redistribute it and/or modify "
         "it under the terms of the GNU General Public License as published by "
-        "the Free Software Foundation; either version 2 of the License, or "
-        "(at your option) any later version.\n"
+        "the Free Software Foundation; with version 2 of the License.\n"
         "This program is distributed in the hope that it will be useful, "
         "but WITHOUT ANY WARRANTY; without even the implied warranty of "
         "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the "
