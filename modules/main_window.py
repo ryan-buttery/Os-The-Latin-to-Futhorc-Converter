@@ -1,24 +1,20 @@
 from modules.substitute_text import substitute_text
 from modules.filehandling import fh
+from modules.about_windows import *
 import tkinter as tk
 from tkinter import filedialog, scrolledtext
 import os
 import re
 import sys
 
-# Aesthetics
-heading_font: tuple = ("Serif", 16, "bold")
-subheading_font: tuple = ("Serif", 14, "bold")
-input_text_font: tuple = ("Serif", 12)
-output_text_font: tuple = ("Serif", 12, "bold")
 
-
-def resource_path(relative_path):
+# file handling stuff
+def resource_path(relative_path) -> os.path.join:
     base_path = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
     return os.path.join(base_path, relative_path)
 
 
-def open_file():
+def open_file() -> None:
     file_path = filedialog.askopenfilename()
     if file_path:
         with open(file_path, "r") as file:
@@ -27,7 +23,7 @@ def open_file():
         input_text_box.insert(tk.END, content)
 
 
-def save_text_file():
+def save_text_file() -> None:
     file_path = filedialog.asksaveasfilename(defaultextension=".txt")
     if file_path:
         content = output_text_box.get(1.0, tk.END)
@@ -35,14 +31,15 @@ def save_text_file():
             file.write(content)
 
 
-def save_odt_file():
+def save_odt_file() -> None:
     file_path = filedialog.asksaveasfilename(defaultextension=".odt")
     if file_path:
         content = output_text_box.get(1.0, tk.END)
         fh.save_as_odt(filepath=file_path, content=content)
 
 
-def process_text(event=None):
+# main logic call
+def process_text(event=None) -> None:
     if input_text_box.edit_modified():
         output_text_box.config(state="normal")
         content = input_text_box.get(1.0, tk.END)
@@ -53,21 +50,22 @@ def process_text(event=None):
         output_text_box.config(state="disabled")
 
 
-def exit_app():
+# misc gui stuff
+def exit_app() -> None:
     root.destroy()
 
 
-def paste_from_clipboard():
+def paste_from_clipboard() -> None:
     # Enable the ScrolledText widget temporarily to paste content
     input_text_box.insert(tk.INSERT, root.clipboard_get())
 
 
-def clear_text():
+def clear_text() -> None:
     # Enable the ScrolledText widget temporarily to clear content
     input_text_box.delete("1.0", tk.END)
 
 
-def select_all_and_copy():
+def select_all_and_copy() -> None:
     # Select all text
     output_text_box.tag_add(tk.SEL, "1.0", tk.END)
     output_text_box.mark_set(tk.INSERT, "1.0")
@@ -78,14 +76,14 @@ def select_all_and_copy():
 
 
 # keyboard shortcut enablers
-def select_all(event):
+def select_all(event) -> str:
     event.widget.tag_add(tk.SEL, "1.0", tk.END)
     event.widget.mark_set(tk.INSERT, "1.0")
     event.widget.see(tk.INSERT)
     return "break"  # Prevent the default behavior
 
 
-def delete_word(event):
+def delete_word(event) -> str:
     # Get the current cursor position
     cursor_position = input_text_box.index(tk.INSERT)
 
@@ -105,7 +103,7 @@ def delete_word(event):
 # right click menu functions
 
 
-def show_context_menu(event):
+def show_context_menu(event) -> None:
     context_menu.tk_popup(event.x_root, event.y_root)
     context_menu.entryconfig("Cut", command=lambda: cut_text(event))
     context_menu.entryconfig("Copy", command=lambda: copy_text(event))
@@ -113,31 +111,38 @@ def show_context_menu(event):
     context_menu.entryconfig("Select All", command=lambda: select_all(event))
 
 
-def copy_text(event=None):
+def copy_text(event=None) -> None:
     event.widget.event_generate("<<Copy>>")
 
 
-def cut_text(event=None):
+def cut_text(event=None) -> None:
     event.widget.event_generate("<<Cut>>")
 
 
-def paste_text(event=None):
+def paste_text(event=None) -> None:
     event.widget.event_generate("<<Paste>>")
 
 
+# Aesthetics
+heading_font: tuple = ("Serif", 16, "bold")
+subheading_font: tuple = ("Serif", 14, "bold")
+input_text_font: tuple = ("Serif", 12)
+output_text_font: tuple = ("Serif", 12, "bold")
+
+# create main window
 root = tk.Tk()
-root.title("Latin to Futhorc Converter")
+root.title("Ōs: The Latin to Futhorc Converter")
 
 root.geometry()
 
 if sys.platform.startswith("win"):
-    icon_path = resource_path("icons/favicon_square.ico")
+    icon_path = resource_path("../icons/favicon_square.ico")
     if os.path.exists(icon_path):
         root.iconbitmap(icon_path)
     else:
         print(f"Icon file not found at {icon_path}")
 else:
-    icon_path = resource_path("icons/favicon_square.png")
+    icon_path = resource_path("../icons/favicon_square.png")
     if os.path.exists(icon_path):
         icon = tk.PhotoImage(file=icon_path)
         root.iconphoto(True, icon)
@@ -164,6 +169,13 @@ edit_menu.add_command(label="Paste Input", command=paste_from_clipboard)
 edit_menu.add_command(label="Clear Input", command=clear_text)
 menubar.add_cascade(label="Edit", menu=edit_menu)
 
+# create edit bar
+
+help_menu = tk.Menu(menubar, tearoff=False)
+help_menu.add_command(label="About", command=show_about)
+help_menu.add_command(label="License and Legal Info", command=show_license)
+menubar.add_cascade(label="Help", menu=help_menu)
+
 
 # right click menu
 
@@ -179,7 +191,8 @@ main_heading_frame.pack(fill=tk.X)
 
 # Create the main heading
 main_heading = tk.Label(
-    main_heading_frame, text="Latin to Futhorc Converter / ᛚᚪᛏᛁᚾ᛫ᛏᚩ᛫ᚠᚢᚦᚩᚱᚳ᛫ᚳᚩᚾᚠᛖᚱᛏᛖᚱ"
+    main_heading_frame,
+    text="Ōs: The Latin to Futhorc Converter / ᚩ᛬ᚦᛖ᛫ᛚᚪᛏᛁᚾ᛫ᛏᚩ᛫ᚠᚢᚦᚩᚱᚳ᛫ᚳᚩᚾᚠᛖᚱᛏᛖᚱ",
 )
 main_heading.config(font=heading_font)
 main_heading.pack(padx=10, pady=10, anchor=tk.W, side=tk.LEFT)
@@ -215,6 +228,3 @@ output_text_box.pack(padx=10, pady=10, expand=True, fill=tk.BOTH)
 output_text_box.bind("<Control-a>", select_all)
 output_text_box.bind("<Control-A>", select_all)
 output_text_box.bind("<Button-3>", show_context_menu)
-
-if __name__ == "__main__":
-    root.mainloop()
