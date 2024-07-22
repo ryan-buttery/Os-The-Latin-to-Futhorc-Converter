@@ -29,7 +29,11 @@ def substitute_text(input_text: str) -> str:
             roman_numeral = int_to_roman(number)
             # Add the Roman numeral to the result
             result.append(roman_numeral)
-        # Firstly deal with substitutions that have two original letters or punctuation followed by a space
+        # Firstly deal with substitutions that have three original chars
+        elif input_text[i : i + 3] in mapping_dict:
+            result.append(mapping_dict[input_text[i : i + 3]])
+            i += 3
+        # then  deal with substitutions that have two original letters or punctuation followed by a space
         elif input_text[i : i + 2] in mapping_dict:
             result.append(mapping_dict[input_text[i : i + 2]])
             i += 2
