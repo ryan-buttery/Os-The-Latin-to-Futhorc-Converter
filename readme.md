@@ -2,6 +2,11 @@
 
 ![Logo of Ōs](https://github.com/user-attachments/assets/6b56cd8c-1a79-4687-91d3-44eb04a3d292)
 
+> Ōs (ᚩ): "The mouth is the source of all language,  
+a pillar of wisdom and a comfort to wise men,  
+a blessing and a joy to every knight."  
+-The Anglo-Saxon Rune Poem
+
 ## Introduction
 
 Ōs provides you with an easy way to transliterate the alphabet of modern English (latin) to the runic "alphabet" used for English from around the 4th to the 11th century.
@@ -12,7 +17,7 @@ As modern numbers (arabic numerals) hadn't made their way to the British Isles a
 
 ## Example input and output
 
-![Screenshot of the application](https://github.com/user-attachments/assets/8e2ec155-b4c9-4c64-8e88-85380cf81162)
+![Screenshot of the application](https://github.com/user-attachments/assets/aeb53644-23ab-41b2-8ee0-d759c625de61)
 
 ### Latin Input
 
