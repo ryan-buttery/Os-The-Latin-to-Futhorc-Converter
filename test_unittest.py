@@ -3,6 +3,7 @@ from unittest.mock import mock_open, patch, MagicMock, call
 from modules.substitute_text import substitute_text, mapping_dict
 import modules.main_window as main_window
 import modules.about_windows as about_windows
+from modules.logo import logo
 from tkinter import BOTH
 from modules.filehandling import fh
 
@@ -176,12 +177,17 @@ class TestHelpGUI(unittest.TestCase):
     @patch("modules.about_windows.Label")
     @patch("modules.about_windows.Button")
     @patch("modules.about_windows.Frame")
+    @patch("modules.about_windows.decode_base64_image")
     def test_show_about(
-        self, mock_frame, mock_button, mock_label, mock_photoimage, mock_toplevel
+        self, mock_decode_base64_image, mock_frame, mock_button, mock_label, mock_photoimage, mock_toplevel
     ):
         # Mock the frame instance
         mock_frame_instance = MagicMock()
         mock_frame.return_value = mock_frame_instance
+
+        # Mock the return value of decode_base64_image
+        mock_photoimage_instance = MagicMock()
+        mock_decode_base64_image.return_value = mock_photoimage_instance
 
         # Call the function
         about_windows.show_about()
@@ -189,15 +195,15 @@ class TestHelpGUI(unittest.TestCase):
         # Check that Toplevel window was created
         mock_toplevel.assert_called_once()
 
-        # Check that PhotoImage was created with correct path
-        mock_photoimage.assert_called_once_with(file="./icons/favicon_square.png")
+        # Check that decode_base64_image was called with the correct logo
+        mock_decode_base64_image.assert_called_once_with(logo)
 
         # Check that Frame was created in Toplevel
         mock_frame.assert_called_once_with(mock_toplevel())
-        mock_frame_instance.pack.assert_called_once_with(pady=10, padx=10, fill=BOTH)
+        mock_frame_instance.pack.assert_called_once_with(pady=10, padx=10, fill='both')
 
         # Check that the icon label was created with the image inside the frame
-        mock_label.assert_any_call(mock_frame_instance, image=mock_photoimage())
+        mock_label.assert_any_call(mock_frame_instance, image=mock_photoimage_instance)
 
         # Check that the about title and body labels were created inside the frame
         mock_label.assert_any_call(
@@ -237,6 +243,16 @@ class TestHelpGUI(unittest.TestCase):
             wraplength=500,
             font=about_windows.subheading_font,
             anchor="w",
+        )
+
+        # Check that the footer label was created inside the frame
+        mock_label.assert_any_call(
+            mock_frame_instance,
+            text="Made with ❤️ by a proud Mercian!",
+            wraplength=500,
+            justify="center",
+            font=about_windows.regular_text_font,
+            anchor="s",
         )
 
         # Check that the close button was created

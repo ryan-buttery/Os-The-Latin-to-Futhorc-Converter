@@ -1,4 +1,4 @@
-from tkinter import Toplevel, Label, Button, PhotoImage, Frame, BOTH, Tk
+from tkinter import Toplevel, Label, Button, Frame, BOTH, Tk
 import webbrowser
 from modules.encdec import *
 from modules.logo import logo
@@ -94,6 +94,17 @@ def show_about() -> None:
     # Bind the click event to the hyperlinks
     github_link.bind("<Button-1>", open_github_url)
     rb_link.bind("<Button-1>", open_rb_url)
+
+    about_footer_text = "Made with ❤️ by a proud Mercian!"
+    label_about_footer = Label(
+        about_window_content_frame,
+        text=about_footer_text,
+        wraplength=500,
+        justify="center",
+        font=regular_text_font,
+        anchor="s",
+    )
+    label_about_footer.pack(pady=10, padx=10)
 
     # pack close btn
     close_button = Button(about_window, text="Close", command=about_window.destroy)
