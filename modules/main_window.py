@@ -2,10 +2,11 @@ from modules.substitute_text import substitute_text
 from modules.filehandling import fh
 from modules.about_windows import *
 import tkinter as tk
-from tkinter import filedialog, scrolledtext
+from tkinter import filedialog, scrolledtext, StringVar, OptionMenu
 import os
 import re
 import sys
+from modules.transliteration_modes import transliteration_manager
 
 
 # file handling stuff
@@ -39,11 +40,12 @@ def save_odt_file() -> None:
 
 
 # main logic call
-def process_text(event=None) -> None:
+def process_text(event=None):
     if input_text_box.edit_modified():
         output_text_box.config(state="normal")
         content = input_text_box.get(1.0, tk.END)
-        modified_content = substitute_text(content)
+        mode = transliteration_manager.get_mode(mode_var.get())
+        modified_content = mode.transliterate(content)
         output_text_box.delete(1.0, tk.END)
         output_text_box.insert(tk.END, modified_content)
         input_text_box.edit_modified(False)
@@ -149,6 +151,17 @@ else:
     else:
         print(f"Icon file not found at {icon_path}")
 
+mode_frame = tk.Frame(root)
+mode_frame.pack(fill=tk.X, padx=10, pady=5)
+
+mode_label = tk.Label(mode_frame, text="Transliteration Mode:")
+mode_label.pack(side=tk.LEFT)
+
+mode_var = StringVar(root)
+mode_var.set("Futhorc")  # default value
+
+mode_menu = OptionMenu(mode_frame, mode_var, *transliteration_manager.get_mode_names())
+mode_menu.pack(side=tk.LEFT)
 # create menu bar
 menubar = tk.Menu(root)
 root.config(menu=menubar)

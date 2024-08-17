@@ -5,7 +5,9 @@ import modules.main_window as main_window
 import modules.about_windows as about_windows
 from modules.logo import logo
 from tkinter import BOTH
+import tkinter as tk
 from modules.filehandling import fh
+from modules.transliteration_modes import TransliterationMode
 
 
 class TestSubstituteText(unittest.TestCase):
@@ -117,15 +119,24 @@ class TestMainGUI(unittest.TestCase):
         mock_open.assert_called_once_with("dummy_save_path", "w")
         mock_open().write.assert_called_once_with("content to save")
 
-    @patch("modules.main_window.substitute_text", return_value="modified text")
+    @patch("modules.main_window.transliteration_manager.get_mode")
     @patch("modules.main_window.output_text_box", new_callable=MagicMock)
     @patch("modules.main_window.input_text_box", new_callable=MagicMock)
+    @patch("modules.main_window.mode_var", new_callable=MagicMock)
     def test_process_text(
-        self, mock_input_text_box, mock_output_text_box, mock_substitute_text
+        self, mock_mode_var, mock_input_text_box, mock_output_text_box, mock_get_mode
     ):
+        # Mock the TransliterationMode
+        mock_mode = MagicMock(spec=TransliterationMode)
+        mock_mode.transliterate.return_value = "ᛗᛟᛞᛁᚠᛁᛖᛞ᛫ᛏᛖᛉᛏ"
+        mock_get_mode.return_value = mock_mode
+
         # Simulate modified text in input_text_box
         mock_input_text_box.edit_modified.return_value = True
         mock_input_text_box.get.return_value = "some text"
+
+        # Simulate selected mode
+        mock_mode_var.get.return_value = "Elder Futhark"
 
         # Call the process_text function
         main_window.process_text()
@@ -136,14 +147,15 @@ class TestMainGUI(unittest.TestCase):
 
         # Check that output_text_box methods were called correctly
         mock_output_text_box.config.assert_any_call(state="normal")
-        mock_output_text_box.delete.assert_called_once_with(1.0, main_window.tk.END)
-        mock_output_text_box.insert.assert_called_once_with(
-            main_window.tk.END, "modified text"
-        )
+        mock_output_text_box.delete.assert_called_once_with(1.0, tk.END)
+        mock_output_text_box.insert.assert_called_once_with(tk.END, "ᛗᛟᛞᛁᚠᛁᛖᛞ᛫ᛏᛖᛉᛏ")
         mock_output_text_box.config.assert_any_call(state="disabled")
 
-        # Check that substitute_text was called with the correct arguments
-        mock_substitute_text.assert_called_once_with("some text")
+        # Check that the correct transliteration mode was retrieved
+        mock_get_mode.assert_called_once_with("Elder Futhark")
+
+        # Check that transliterate was called with the correct arguments
+        mock_mode.transliterate.assert_called_once_with("some text")
 
     def test_copy_text(self):
         event = MagicMock()
@@ -179,7 +191,13 @@ class TestHelpGUI(unittest.TestCase):
     @patch("modules.about_windows.Frame")
     @patch("modules.about_windows.decode_base64_image")
     def test_show_about(
-        self, mock_decode_base64_image, mock_frame, mock_button, mock_label, mock_photoimage, mock_toplevel
+        self,
+        mock_decode_base64_image,
+        mock_frame,
+        mock_button,
+        mock_label,
+        mock_photoimage,
+        mock_toplevel,
     ):
         # Mock the frame instance
         mock_frame_instance = MagicMock()
@@ -200,7 +218,7 @@ class TestHelpGUI(unittest.TestCase):
 
         # Check that Frame was created in Toplevel
         mock_frame.assert_called_once_with(mock_toplevel())
-        mock_frame_instance.pack.assert_called_once_with(pady=10, padx=10, fill='both')
+        mock_frame_instance.pack.assert_called_once_with(pady=10, padx=10, fill="both")
 
         # Check that the icon label was created with the image inside the frame
         mock_label.assert_any_call(mock_frame_instance, image=mock_photoimage_instance)
